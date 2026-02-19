@@ -1,0 +1,22 @@
+{%- set emoji_map = {
+    "Солнечно": "☀️",
+    "Пасмурно": "⛅",
+    "Дождь": "🌧️",
+    "Снег": "❄️",
+    "Туман": "🌫️",
+    "Гроза": "⛈️"
+} -%}
+
+{{ emoji_map.get(forecast.current.description, "🌤️") }} <b>{{ forecast.location_name }}</b>
+
+🕗 {{ forecast.current.timestamp.strftime("%H:%M") }} | 🌡️ {{ forecast.current.temp }}°C | {{ forecast.current.description }}
+
+🔽 <b>Давление</b>: {{ forecast.current.pressure }} мм рт.ст. 
+💧 <b>Влажность</b>: {{ forecast.current.humidity }}% 
+💨 <b>Ветер</b>: {{ forecast.current.wind_speed }} м/с, {{ forecast.current.wind_direction }}  
+👁️ <b>Видимость</b>: {{ forecast.current.visibility }} км
+
+📊 <b>Изменения за последний час</b>:
+• 🌡️ Температура: {{ "↑" if forecast.trends.temp_change > 0 else "↓" }} {{ "%.1f"|format(forecast.trends.temp_change) }}°C  
+• 📉 Давление: {{ "↑" if forecast.trends.pressure_change > 0 else "↓" }} {{ "%.1f"|format(forecast.trends.pressure_change) }} мм рт.ст.  
+• 💧 Влажность: {{ "↑" if forecast.trends.humidity_change > 0 else "↓" }} {{ "%.1f"|format(forecast.trends.humidity_change) }}%

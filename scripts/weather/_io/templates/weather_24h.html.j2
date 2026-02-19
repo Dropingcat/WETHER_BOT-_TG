@@ -1,0 +1,21 @@
+{%- macro weather_emoji(code) -%}
+    {%- if code == 0 -%}☀️
+    {%- elif code in [1, 2, 3] -%}⛅
+    {%- elif code in [45, 48] -%}🌫️
+    {%- elif code in [51, 53, 55, 56, 57] -%}🌧️
+    {%- elif code in [61, 63, 65, 66, 67] -%}🌧️
+    {%- elif code in [71, 73, 75, 77] -%}❄️
+    {%- elif code in [80, 81, 82] -%}🌦️
+    {%- elif code in [85, 86] -%}❄️
+    {%- elif code in [95, 96, 99] -%}⛈️
+    {%- else -%}🌤️
+    {%- endif -%}
+{%- endmacro -%}
+
+🌤️ <b>Прогноз на 24 часа: {{ forecast.location_name }}</b>
+🕗 Время  🌡️Темп  💧мм/ч  📉мм.рт.ст.  💨Напр, м/с
+{%- for point in forecast.hourly %}
+{{ weather_emoji(point.weather_code) }} {{ point.timestamp.strftime("%H:%M") }}  🌡️{{ "+" if point.temp >= 0 else "" }}{{ "%.0f"|format(point.temp) }}°C  💧{{ "%.1f"|format(point.precipitation) if point.precipitation > 0 else "–" }}  📉{{ "%.0f"|format(point.pressure) }}  💨{{ point.wind_dir }}{{ point.wind_speed }}
+{%- endfor %}
+
+↩️ Назад к выбору | 🏠 Главное меню
