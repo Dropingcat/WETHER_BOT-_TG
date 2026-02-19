@@ -1,0 +1,5 @@
+git checkout -b feat/weather-details-with-trends
+git add core/models/weather_response.py
+git add scripts/weather/_services/weather_simulator.py
+git add scripts/weather/_io/templates/weather_today.html.j2
+git commit -m "feat(weather): add detailed weather with trends and emojis"
